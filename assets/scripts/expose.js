@@ -1,48 +1,46 @@
 // expose.js
-let select, audio, volume, icon;
-
 window.addEventListener('DOMContentLoaded', init);
 
 function init() {
-const jsConfetti = new JSConfetti()
-const audio = document.querySelector('.hidden');
+const Confetti = new JSConfetti()
+const hiddenAudio = document.querySelector('.hidden');
 const volume = document.getElementById('volume');
-const icon = document.querySelector('[alt^="Volume level"]');
+const volumeLevel = document.querySelector('[alt^="Volume level"]');
 const select = document.getElementById('horn-select');
 
 select.addEventListener('input', () => {
-  updateImage(select.value);
+  Image(select.value);
 });
 
 volume.addEventListener('input', () => {
-  updateVolume();
+  Volume();
 });
 
 document.querySelector('button').addEventListener('click', () => {
-  audio.play();
+  hiddenAudio.play();
   if (select.value === 'party-horn') {
-    jsConfetti.addConfetti();
+    Confetti.addConfetti();
   }
 });
 
-function updateImage(value) {
+function Image(value) {
   const image = document.querySelector('[alt="No image selected"]');
   image.setAttribute('src', `assets/images/${value}.svg`);
-  audio.setAttribute('src', `assets/audio/${value}.mp3`);
+  hiddenAudio.setAttribute('src', `assets/audio/${value}.mp3`);
 }
 
-function updateVolume() {
+function Volume() {
   const value = volume.value;
   if (value == 0) {
-    icon.setAttribute('src', 'assets/icons/volume-level-0.svg');
+    volumeLevel.setAttribute('src', 'assets/icons/volume-level-0.svg');
   } else if (value < 34) {
-    icon.setAttribute('src', 'assets/icons/volume-level-1.svg');
+    volumeLevel.setAttribute('src', 'assets/icons/volume-level-1.svg');
   } else if (value < 67) {
-    icon.setAttribute('src', 'assets/icons/volume-level-2.svg');
+    volumeLevel.setAttribute('src', 'assets/icons/volume-level-2.svg');
   } else {
-    icon.setAttribute('src', 'assets/icons/volume-level-3.svg');
+    volumeLevel.setAttribute('src', 'assets/icons/volume-level-3.svg');
   }
-  audio.volume = value / 100;
+  hiddenAudio.volume = value / 100;
 }
 
 }
